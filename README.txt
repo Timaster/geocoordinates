@@ -1,0 +1,1 @@
+This is a very simple tool to convert addresses to geographic latitude and longitude coordinates en masse using the yandex.ru maps API. Paste addresses into the first box, one per line, press "Get Coordinates!". Wait for it to finish processing, and you will see the coordinates in the 2nd box.
