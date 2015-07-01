@@ -19,19 +19,21 @@ function getResults()
 		findPlace = ymaps.geoQuery(ymaps.geocode(addresses[i]));
 	}
 	else if (findPlace.isReady())
-		{
-			++i;
-			result += i + ':\t ';
-			if (!findPlace.getBounds())
-				result += 'Error: Address not found.\n';
-			else if (findPlace.getBounds().length != 2)
-				result += 'Error: Length of array is ' + findPlace.getBounds().length + '.\n';
-			else if (findPlace.getBounds()[0][0] != findPlace.getBounds()[1][0] || findPlace.getBounds()[0][1] != findPlace.getBounds()[1][1])
-				result += "Error: Coordinates of array don't match.\n";
-			else
-				result += findPlace.getBounds()[0][0] + ',' + findPlace.getBounds()[0][1] + '\n';
-			document.getElementById("output").value = result;
-		}
+	{
+		bounds = findPlace.getBounds();
+		++i;
+		console.log(bounds);
+
+		result += i + ':\t ';
+		if (!bounds)
+			result += 'Error: Address not found.\n';
+		else if (bounds.length != 2)
+			result += 'Error: Length of array is ' + bounds.length + '.\n';
+		else
+			result += ((bounds[0][0] + bounds[1][0]) / 2) + ',' + ((bounds[0][1] + bounds[1][1]) / 2) + '\n';
+
+		document.getElementById("output").value = result;
+	}
 }
 
 function init () {
@@ -39,7 +41,7 @@ function init () {
 	ymaps.run = function()
 	{
 		addresses = document.getElementById("input").value.split('\n');
-		max = addresses.length;		
+		max = addresses.length;
 		i = 0;
 		prev = -1;
 		result = '';
